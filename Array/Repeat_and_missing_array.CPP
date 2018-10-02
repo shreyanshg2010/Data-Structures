@@ -21,7 +21,7 @@ A = 3, B = 4
 #include <vector> 
 #include<climits>
 using namespace std;
-int repeatedNumber(const vector<int> &A) {
+vector<int> repeatedNumber(const vector<int> &A) {
   long long int n=A.size();
     long long int sum=0;
     long long int diff;
@@ -42,8 +42,7 @@ int repeatedNumber(const vector<int> &A) {
     while (B.empty()){
     B.push_back((b-diff)/2);
     B.push_back((b+diff)/2);}
-    for(int i=0;i<B.size();i++){
-    cout<<B[i]<<" ";}
+    return B;
 }
 
 int main()
@@ -57,7 +56,9 @@ int main()
     }
    //for (int i:A) 
        // cout << i<< " "; 
-  
-    cout<<repeatedNumber(A);
+    vector<int> B;
+    B=repeatedNumber(A);
+    for(int i=0;B[i]!=0;i++){
+    cout<<B[i]<<" ";}
     return 0;
 }
