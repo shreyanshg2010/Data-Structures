@@ -13,14 +13,14 @@ struct Node
     struct Node* next;
 };
 
-// Helper function to create a new node of the linked list
-struct Node* newNode(int data)
+// Helper function to push a new node at the beginning of the linked list
+void push(struct Node** head, int data)
 {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = data;
-    newNode->next = NULL;
+    newNode->next = *head;
 
-    return newNode;
+    *head = newNode;
 }
 
 // Helper function to print given linked list
@@ -36,82 +36,50 @@ void printList(char *msg, struct Node* head)
     printf("NULL\n");
 }
 
-// Function to reverse the given linked list
-void reverse(struct Node** head)
+// Recursive function to add a given digit to the linked list
+// representing a number.
+int add(struct Node *head, int digit)
 {
-    struct Node* prev = NULL;
-    struct Node* current = *head;
-    struct Node* next;
+    // base case: end of the linked list is reached
+    if (head == NULL)
+        return digit;
 
-    // traverse the list
-    while (current)
-    {
-        // tricky: note the next node
-        next = current->next;
+    // store carry returned by the recursive call of the next node
+    int carry = add(head->next, digit);
 
-        // fix the current node
-        current->next = prev;
+    // optimization: terminate the recursion if carry is 0 at any point
+    if (carry == 0)
+        return;
 
-        // advance the two pointers
-        prev = current;
-        current = next;
-    }
+    // get sum of the current node and the carry
+    int sum = head->data + carry;
 
-    // fix the head pointer to point to the new front
-    *head = prev;
+    head->data = sum % 10;    // update value of the current node
+    return sum/10;            // return carry
 }
 
 // Function to add a single-digit number to a singly linked list 
 // whose nodes represents digits of a number
 void addDigit(struct Node** head, int digit)
 {
-    // empty list
-    if (*head == NULL)
-        return;
+    // Add given digit to the linked list using recursion
+    int carry = add(*head, digit);
 
-    // reverse the linked list
-    reverse(head);
-
-    // initialize carry with given digit
-    int carry = digit;
-
-    // traverse the reversed list
-    struct Node* curr = *head;
-    while (carry)
-    {
-        // get sum of current node and carry
-        int sum = curr->data + carry;
-
-        // update value of the current node with the single-digit sum
-        curr->data = sum % 10;
-
-        // set carry for the next node
-        carry = sum / 10;
-
-        // break if current node is the last node
-        if (curr->next == NULL)
-            break;
-
-        // move to the next node
-        curr = curr->next;
+    // if there is any carry left, add a new node at the beginning of the list
+    if (carry) {
+        push(head, carry);
     }
-
-    // add a new node at the end of linked list if there is any carry left
-    if (carry)
-        curr->next = newNode(carry);
-
-    // reverse the list again to restore the original order
-    reverse(head);
 }
 
 // main function
 int main(void)
 {
-    struct Node *head = newNode(9);
-    head->next = newNode(9);
-    head->next->next = newNode(9);
-    head->next->next->next = newNode(9);
-    head->next->next->next->next = newNode(3);
+    int number[] = { 9, 9, 9, 9, 3 };
+    int n = sizeof(number)/ sizeof(int);
+
+    struct Node *head = NULL;
+    for (int i = n - 1; i >= 0; i--)
+        push(&head, number[i]);
 
     int digit = 7;
 
