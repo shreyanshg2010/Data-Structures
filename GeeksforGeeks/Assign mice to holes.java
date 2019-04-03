@@ -6,6 +6,8 @@ Input : positions of mice are:
           4 -4 2
         positions of holes are:
           4 0 5
+                    
+                    
 Output :  4
 Assign mouse at position x = 4 to hole at 
 position x = 4 : Time taken is 0 minutes 
