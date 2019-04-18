@@ -3,6 +3,7 @@ Initially the miner is at first column but can be at any row. He can move only (
 the miner can move to the cell diagonally up towards the right or right or diagonally down towards the right. 
 Find out maximum amount of gold he can collect.
 
+	
 Examples:
 
 Input : mat[][] = {{1, 3, 3},
