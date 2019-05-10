@@ -6,6 +6,7 @@ Find out maximum amount of gold he can collect.
 	
 Examples:
 
+
 Input : mat[][] = {{1, 3, 3},
                    {2, 1, 4},
                   {0, 6, 4}};
