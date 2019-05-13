@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// Function to sort binary array in linear time
 int sort(int A[], int n)
 {
 	// count number of 0's
