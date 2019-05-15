@@ -2,13 +2,15 @@ Your task is to design a contacts application that supports two features :
 
 add name where name is a string that denotes the name of the contact. This operation must store a new contact by the name name.
 
-find partial where partial is a string denoting a part of the name to search for in the directory. It must count the number of contacts that start with partial and print the count.
+find partial where partial is a string denoting a part of the name to search for in the directory. 
+It must count the number of contacts that start with partial and print the count.
 
 You are given n sequential operations of either type 1 or type 2. You are expected to perform them in the order given.
 
 Input Format
 
-The first line contains a single integer, n , denoting the number of operations to perform. Each line i of the n subsequent lines contains an operation in one of the two forms defined above.
+The first line contains a single integer, n , denoting the number of operations to perform. 
+Each line i of the n subsequent lines contains an operation in one of the two forms defined above.
 
 Constraints
 
