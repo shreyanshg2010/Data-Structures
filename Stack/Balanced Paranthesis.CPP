@@ -2,8 +2,6 @@ Input:[()]{}{[()()]()}
 Output:Balanced
 
 
-
-// CPP program to check for balanced parenthesis. 
 #include<bits/stdc++.h> 
 using namespace std; 
 
