@@ -4,8 +4,6 @@ Output:Balanced
 
 #include<bits/stdc++.h> 
 using namespace std; 
-
-// function to check if paranthesis are balanced 
 bool areParanthesisBalanced(string expr) 
 { 
 	stack<char> s; 
