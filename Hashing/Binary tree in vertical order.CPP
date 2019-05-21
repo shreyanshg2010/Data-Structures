@@ -1,10 +1,7 @@
-// C++ program for printing vertical order of a given binary tree 
 #include <iostream> 
 #include <vector> 
 #include <map> 
 using namespace std; 
-
-// Structure for a binary tree node 
 struct Node 
 { 
 	int key; 
