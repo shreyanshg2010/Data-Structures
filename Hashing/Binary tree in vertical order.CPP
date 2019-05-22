@@ -7,8 +7,6 @@ struct Node
 	int key; 
 	Node *left, *right; 
 }; 
-
-// A utility function to create a new node 
 struct Node* newNode(int key) 
 { 
 	struct Node* node = new Node; 
