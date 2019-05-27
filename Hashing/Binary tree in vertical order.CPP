@@ -14,8 +14,6 @@ struct Node* newNode(int key)
 	node->left = node->right = NULL; 
 	return node; 
 } 
-
-
 // Utility function to store vertical order in map 'm' 
 // 'hd' is horigontal distance of current node from root. 
 // 'hd' is initally passed as 0 
@@ -34,7 +32,6 @@ void getVerticalOrder(Node* root, int hd, map<int, vector<int>> &m)
 	// Store nodes in right subtree 
 	getVerticalOrder(root->right, hd+1, m); 
 } 
-
 // The main function to print vertical oder of a binary tree 
 // with given root 
 void printVerticalOrder(Node* root) 
