@@ -1,35 +1,33 @@
 input
-3
-1 2 3
-4
+10 120
+1 2 3 4 5 6 7 8 9 10
 
 output:
-4
+23785645
 
 
 #include<bits/stdc++.h>
 using namespace std;
-int count( int S[], int m, int n ) 
-{ 
-	int table[n+1]; 
-	memset(table, 0, sizeof(table));
-	table[0] = 1; 
-	for(int i=0; i<m; i++) 
-		for(int j=S[i]; j<=n; j++) 
-			table[j] += table[j-S[i]]; 
+const int N=1e3;
+int A[N],n;
+int vis[N][N],dp[N][N];
 
-	return table[n]; 
-} 
-int main() 
-{ 
-    int m,i;
-    cin>>m;
-    int arr[m];
-    for(i=0;i<m;i++)
-    cin>>arr[i];
-    int n;
-    cin>>n;
-    cout << count(arr, m, n); 
-    return 0; 
+int ways(int pos,int S){
+    if(pos==n)
+        return S==0;
+    int &ans=dp[pos][S];
+    if(vis[pos][S]) return ans;
+    vis[pos][S]=1,ans=0;
+    int times=0;
+    while(times*A[pos]<=S) ans+=ways(pos+1,S-times*A[pos]),times++;
+    return ans;
+}
+int main(){
+    int i,S;
+    cin>>n>>S;
+    for(i=0;i<n;i++){
+        cin>>A[i];}
+    cout<<ways(0,S);
+    return 0;
 } 
   
