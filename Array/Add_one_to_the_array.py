@@ -1,5 +1,4 @@
 def plusOne(A):
-    
     for i in range(len(A)-1, -1, -1):
         if A[i] == 9:
              A[i] = 0
