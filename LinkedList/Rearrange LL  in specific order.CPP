@@ -27,7 +27,8 @@ void rearrange(Node** head)
 {
 	if (*head == nullptr || (*head)->next == nullptr)
 		return;
-	Node *dummyFirst, *dummySecond;
+	Node *dummyFirst=(struct Node*)malloc(sizeof(struct Node));
+	Node *dummySecond=(struct Node*)malloc(sizeof(struct Node));
 	Node *first = dummyFirst, *second = dummySecond;
 	Node *curr = *head;
 	while (curr != nullptr)
