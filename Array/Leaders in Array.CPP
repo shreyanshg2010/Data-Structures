@@ -1,7 +1,8 @@
 Submissions: 43037   Accuracy: 42.7%   Difficulty: Easy   Marks: 2
         
 Given an array of positive integers. Your task is to find the leaders in the array.
-Note: An element of array is leader if it is greater than or equal to all the elements to its right side. Also, the rightmost element is always a leader. 
+Note: An element of array is leader if it is greater than or equal to all the elements to its right side.
+	Also, the rightmost element is always a leader. 
 
 Input:
 The first line of input contains an integer T denoting the number of test cases. The description of T test cases follows.
