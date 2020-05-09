@@ -1,0 +1,781 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+#include<iostream>
+#include<sstream>
+#include<vector>
+#include<algorithm>
+#include<map>
+#include<string>
+#include <unordered_map>
+#include <unordered_set>
+#include <chrono> 
+using namespace std::chrono;
+using namespace std;
+/**** matrix power ****/
+ 
+/*const int  maxsize = 2;
+const int mod = 1e9 + 7;
+struct matrix
+{
+	long long arr[maxsize][maxsize];
+};
+matrix mul(matrix &a, matrix &b)
+{
+	matrix res;
+	for (int i = 0; i < maxsize; i++)
+		for (int j = 0; j < maxsize; j++)
+		{
+			res.arr[i][j] = 0;
+			for (int k = 0; k < maxsize; k++)
+			{
+				long long sum = a.arr[i][k] * b.arr[k][j];
+				sum %= mod;
+				res.arr[i][j] += sum;
+				res.arr[i][j] %= mod;
+			}
+		}
+	return res;
+}
+matrix identity()
+{
+	matrix res;
+	for (int i = 0; i < maxsize; i++)
+		for (int j = 0; j < maxsize; j++)
+			res.arr[i][j] = (i == j);
+	return res;
+}
+matrix power(matrix a, long long x)
+{
+	matrix res = identity();
+	while (x)
+	{
+		if (x & 1)
+		{
+			res = mul(res, a);
+		}
+		a = mul(a, a);
+		x >>= 1;
+	}
+	return res;
+}*/
+/////////////////////////////////////////////////////////////////////////////
+ 
+//number theory//
+ 
+//is prime check
+ 
+/*bool isprime(int n)
+{
+	if (n <= 1) return false;
+	if (n == 2) return true;
+	if (n % 2 == 0) return false;
+ 
+	for (int i = 3; i*i <= n; i += 2) {
+		if (n%i == 0)
+			return false;
+	}
+	return true;
+}
+ 
+------------------------------------------
+ 
+factorizaion
+vector<ll>factors;
+ 
+void getfactors() {
+	for (int i = 1; i*i <= n; i++) {
+		if (n%i == 0) {
+			if (i != n / i)
+				factors.push_back(i), factors.push_back(n / i);
+			else
+				factors.push_back(i);
+		}
+	}
+}
+ 
+------------------------------------------
+seive
+ 
+vb prime(max, true);
+ 
+void seive() {
+	prime[0] = prime[1] = 0;
+ 
+	for (int i = 2; i*i <= max; i++) {
+		if (primes[i]) {
+			for (int j = i * 2; j <= max; j += i)
+				primes[j] = 0;
+		}
+	}
+}
+------------------------------------------
+ 
+smallest prime factor
+ 
+int spf[max];
+ 
+void sieve() {
+	spf[1] = 1;
+	for (int i = 2; i < max; i++) spf[i] = i;
+	for (int i = 4; i < max; i += 2) spf[i] = 2;
+	for (int i = 3; i < max; i++) {
+		if (spf[i] == i) {
+			for (int j = i; j < max; j += i) {
+				if (spf[j] == j)
+					spf[j] = i;
+			}
+		}
+	}
+}
+ 
+------------------------------------------
+ 
+prime factorization x = p1^d1 * p2^d2 * .... * pn^dn
+ex: 36 = 2^2 * 3^2
+ 
+int spf[max], power[max]
+ 
+void sieve() {
+	spf[1] = 1;
+	for (int i = 2; i < max; i++) spf[i] = i;
+	for (int i = 4; i < max; i += 2) spf[i] = 2;
+	for (int i = 3; i < max; i++) {
+		if (spf[i] == i) {
+			for (int j = i; j < max; j += i) {
+				if (spf[j] == j)
+					spf[j] = i;
+			}
+		}
+	}
+}
+ 
+void getfactors(int num)
+{
+	int cnt = 1, last = spf[num], ans = 1;
+ 
+	while (num != 1) {
+		num = num / spf[num];
+		if (last == spf[num]) {
+			cnt++;
+			continue;
+		}
+		power[last] = cnt;
+		cnt = 1;
+		last = spf[num];
+	}
+}
+ 
+------------------------------------------
+gcd and lcm
+ 
+ll gcd(ll a, ll b) { return (b == 0 ? a : gcd(b, a % b)); }
+ 
+ll lcm(ll a, ll b) { return ((a*b) / gcd(a, b)); }
+ 
+------------------------------------------
+ 
+fast power with mod (modular exponentiation)
+ll fastpower(ll base, ll exp)
+{
+	ll res = 1;
+	while (exp > 0) {
+		if (exp & 1) res = (res*base) % mod;
+		base = (base*base) % mod;
+		exp = exp >> 1;
+	}
+	return res;
+}
+ 
+------------------------------------------
+ 
+mod rules
+(a * b) % mod = ((a % mod) * (b % mod)) % mod
+ 
+(a + b) % mod = ((a % mod) + (b % mod)) % mod
+ 
+mod of very large numbers
+rule: xy (mod a) â¡ ((x (mod a) * y) (mod a))
+ 
+int mod(string num, int mod)
+{
+	int res = 0;
+ 
+	for (int i = 0; i < num.size(); i++)
+		res = (res * 10 + num[i] - '0') % mod;
+ 
+	return res;
+}*/
+////////////////////////////////////////////////////////////////////////////
+//dijkstra//
+ 
+/*vector<ii> adj[n];
+int sp[n];
+int par[n];
+ 
+vector<int> path;
+void build(int u) {
+ 
+	while (u != -1) {
+		path.pb(u);
+		u = par[u];
+	}
+ 
+	the path is reversed, fix it
+	reverse(all(path));
+}
+ 
+int main() {
+#ifndef online_judge
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+ 
+	cin >> n >> m;
+ 
+	int u, v, c, source, destination;
+ 
+	for (int i = 1; i <= m; ++i) {
+		cin >> u >> v >> c;
+		u--, v--;
+		adj[u].pb({ v, c });
+		adj[v].pb({ u, c });
+	}
+ 
+	cin >> source >> destination;
+	source--;
+	destination--;
+ 
+	for (int i = 0; i < n; ++i)
+		sp[i] = inf, par[i] = -1;
+	priority_queue<ii, vector<ii>, greater<ii> > pq;
+ 
+	pq.push({ 0, source });
+	sp[source] = 0;
+	while (!pq.empty()) {
+		u = pq.top().s;
+		c = pq.top().f;
+		pq.pop();
+		if (sp[u] < c)
+			continue;
+ 
+		for (auto edge : adj[u]) {
+			int to = edge.first;
+			int cost = edge.second;
+ 
+			if (c + cost < sp[to]) {
+ 
+				sp[to] = c + cost;
+				pq.push({ sp[to], to });
+ 
+				assign (u) as parent of (to) to rebuild the path
+				par[to] = u;
+			}
+		}
+	}
+ 
+	if (sp[destination] == inf)
+		cout << -1 << endl;
+	else {
+ 
+		cout << sp[destination] << endl;
+ 
+		build(destination);
+		for (int i = 0; i < path.size(); ++i)
+			cout << path[i] << " ";
+ 
+	}
+	return 0;
+ 
+}
+*/
+ 
+/*
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+#include<iostream>
+#include<sstream>
+#include<vector>
+#include<algorithm>
+#include<map>
+#include<string>
+#include <unordered_map>
+#include <unordered_set>
+#include <chrono>
+using namespace std::chrono;
+using namespace std;
+/**** matrix power ****/
+ 
+/*const int  maxsize = 2;
+const int mod = 1e9 + 7;
+struct matrix
+{
+	long long arr[maxsize][maxsize];
+};
+matrix mul(matrix &a, matrix &b)
+{
+	matrix res;
+	for (int i = 0; i < maxsize; i++)
+		for (int j = 0; j < maxsize; j++)
+		{
+			res.arr[i][j] = 0;
+			for (int k = 0; k < maxsize; k++)
+			{
+				long long sum = a.arr[i][k] * b.arr[k][j];
+				sum %= mod;
+				res.arr[i][j] += sum;
+				res.arr[i][j] %= mod;
+			}
+		}
+	return res;
+}
+matrix identity()
+{
+	matrix res;
+	for (int i = 0; i < maxsize; i++)
+		for (int j = 0; j < maxsize; j++)
+			res.arr[i][j] = (i == j);
+	return res;
+}
+matrix power(matrix a, long long x)
+{
+	matrix res = identity();
+	while (x)
+	{
+		if (x & 1)
+		{
+			res = mul(res, a);
+		}
+		a = mul(a, a);
+		x >>= 1;
+	}
+	return res;
+}*/
+/////////////////////////////////////////////////////////////////////////////
+ 
+//number theory//
+ 
+//is prime check
+ 
+/*bool isprime(int n)
+{
+	if (n <= 1) return false;
+	if (n == 2) return true;
+	if (n % 2 == 0) return false;
+ 
+	for (int i = 3; i*i <= n; i += 2) {
+		if (n%i == 0)
+			return false;
+	}
+	return true;
+}
+ 
+------------------------------------------
+ 
+factorizaion
+vector<ll>factors;
+ 
+void getfactors() {
+	for (int i = 1; i*i <= n; i++) {
+		if (n%i == 0) {
+			if (i != n / i)
+				factors.push_back(i), factors.push_back(n / i);
+			else
+				factors.push_back(i);
+		}
+	}
+}
+ 
+------------------------------------------
+seive
+ 
+vb prime(max, true);
+ 
+void seive() {
+	prime[0] = prime[1] = 0;
+ 
+	for (int i = 2; i*i <= max; i++) {
+		if (primes[i]) {
+			for (int j = i * 2; j <= max; j += i)
+				primes[j] = 0;
+		}
+	}
+}
+------------------------------------------
+ 
+smallest prime factor
+ 
+int spf[max];
+ 
+void sieve() {
+	spf[1] = 1;
+	for (int i = 2; i < max; i++) spf[i] = i;
+	for (int i = 4; i < max; i += 2) spf[i] = 2;
+	for (int i = 3; i < max; i++) {
+		if (spf[i] == i) {
+			for (int j = i; j < max; j += i) {
+				if (spf[j] == j)
+					spf[j] = i;
+			}
+		}
+	}
+}
+ 
+------------------------------------------
+ 
+prime factorization x = p1^d1 * p2^d2 * .... * pn^dn
+ex: 36 = 2^2 * 3^2
+ 
+int spf[max], power[max]
+ 
+void sieve() {
+	spf[1] = 1;
+	for (int i = 2; i < max; i++) spf[i] = i;
+	for (int i = 4; i < max; i += 2) spf[i] = 2;
+	for (int i = 3; i < max; i++) {
+		if (spf[i] == i) {
+			for (int j = i; j < max; j += i) {
+				if (spf[j] == j)
+					spf[j] = i;
+			}
+		}
+	}
+}
+ 
+void getfactors(int num)
+{
+	int cnt = 1, last = spf[num], ans = 1;
+ 
+	while (num != 1) {
+		num = num / spf[num];
+		if (last == spf[num]) {
+			cnt++;
+			continue;
+		}
+		power[last] = cnt;
+		cnt = 1;
+		last = spf[num];
+	}
+}
+ 
+------------------------------------------
+gcd and lcm
+ 
+ll gcd(ll a, ll b) { return (b == 0 ? a : gcd(b, a % b)); }
+ 
+ll lcm(ll a, ll b) { return ((a*b) / gcd(a, b)); }
+ 
+------------------------------------------
+ 
+fast power with mod (modular exponentiation)
+ll fastpower(ll base, ll exp)
+{
+	ll res = 1;
+	while (exp > 0) {
+		if (exp & 1) res = (res*base) % mod;
+		base = (base*base) % mod;
+		exp = exp >> 1;
+	}
+	return res;
+}
+ 
+------------------------------------------
+ 
+mod rules
+(a * b) % mod = ((a % mod) * (b % mod)) % mod
+ 
+(a + b) % mod = ((a % mod) + (b % mod)) % mod
+ 
+mod of very large numbers
+rule: xy (mod a) â¡ ((x (mod a) * y) (mod a))
+ 
+int mod(string num, int mod)
+{
+	int res = 0;
+ 
+	for (int i = 0; i < num.size(); i++)
+		res = (res * 10 + num[i] - '0') % mod;
+ 
+	return res;
+}*/
+////////////////////////////////////////////////////////////////////////////
+//dijkstra//
+ 
+/*vector<ii> adj[n];
+int sp[n];
+int par[n];
+ 
+vector<int> path;
+void build(int u) {
+ 
+	while (u != -1) {
+		path.pb(u);
+		u = par[u];
+	}
+ 
+	the path is reversed, fix it
+	reverse(all(path));
+}
+ 
+int main() {
+#ifndef online_judge
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+ 
+	cin >> n >> m;
+ 
+	int u, v, c, source, destination;
+ 
+	for (int i = 1; i <= m; ++i) {
+		cin >> u >> v >> c;
+		u--, v--;
+		adj[u].pb({ v, c });
+		adj[v].pb({ u, c });
+	}
+ 
+	cin >> source >> destination;
+	source--;
+	destination--;
+ 
+	for (int i = 0; i < n; ++i)
+		sp[i] = inf, par[i] = -1;
+	priority_queue<ii, vector<ii>, greater<ii> > pq;
+ 
+	pq.push({ 0, source });
+	sp[source] = 0;
+	while (!pq.empty()) {
+		u = pq.top().s;
+		c = pq.top().f;
+		pq.pop();
+		if (sp[u] < c)
+			continue;
+ 
+		for (auto edge : adj[u]) {
+			int to = edge.first;
+			int cost = edge.second;
+ 
+			if (c + cost < sp[to]) {
+ 
+				sp[to] = c + cost;
+				pq.push({ sp[to], to });
+ 
+				assign (u) as parent of (to) to rebuild the path
+				par[to] = u;
+			}
+		}
+	}
+ 
+	if (sp[destination] == inf)
+		cout << -1 << endl;
+	else {
+ 
+		cout << sp[destination] << endl;
+ 
+		build(destination);
+		for (int i = 0; i < path.size(); ++i)
+			cout << path[i] << " ";
+ 
+	}
+	return 0;
+ 
+}
+*/
+ 
+//MOVING THROUGH GRID WITHOUT LOOP AND WITH DP instead of dp use return only.....
+/*
+ 
+bool valid(int a, int b) {
+	return a >= 0 && a < n && b >= 0 && b < m;
+}
+int min(int x, int y, int z)
+{
+	if (x < y)
+		return (x < z) ? x : z;
+	else
+		return (y < z) ? y : z;
+}
+int solve(int i, int j) {
+	if (valid(i, j) == 0)return OO;
+	if (i == n - 1 && j == m - 1)
+		return arr[i][j];
+	if (dp[i][j] != -1)return dp[i][j];
+	return dp[i][j]=arr[i][j] + min(solve(i + 1, j),
+		solve(i, j+1),
+		solve(i+1, j+1));
+}
+ 
+*/
+ 
+/*
+//generating subsets [0,1,2] => {},{0},{1},{2},{0,1},{0,2},{1,2},{0,1,2}
+//2^n
+void search(int k){
+	if(k==n){
+		//process subset
+	}
+	else{
+		search(k+1);
+		subset.push_back(k);
+		search(k+1);
+		subset.pop_back();
+	}
+}
+*/
+ 
+/*
+very important code in recurion and path recovery from recurion
+ 
+int n;
+const int OO = 100000000;
+vector<string>ansvec;
+vector<vector<int>>vec;
+vector<int>m;
+bool visited[102][502];
+int dp[102][502][1001];
+int ans;
+int counter = 0;
+int max1(int a, int b, int c) {
+	if (a >= b && a >= c)
+		return a;
+	if (b >= a && b >= c)
+		return b;
+	return c;
+}
+int solve(int i, int j, int t) {
+ 
+	if (t < 0)
+		return -OO;
+ 
+	if (t == 0 || i == n || j >= m[i]) {
+		return 0;
+	}
+ 
+ 
+	if (dp[i][j][t] != -1) {
+		return dp[i][j][t];
+	}
+ 
+	int m1 = -OO, m2 = -OO;
+	if (!visited[i][j]) { //valid
+		m1 = max1(solve(i, j + 1, t - vec[i][j]) + 1, solve(i + 1, 0, t - vec[i][j]) + 1, solve(i + 1, 0, t));
+	}
+	else
+	{
+		m2 = max(solve(i + 1, 0, t), solve(i, j + 1, t));
+	}
+	return dp[i][j][t] = max(m1, m2);
+ 
+ 
+}
+string ansstring = "";
+void path(int i, int j, int t) {
+ 
+	if (t < 0)
+		return;
+ 
+	if (t == 0 || i == n || j >= m[i]) {
+		return;
+	}
+	int a = -OO;int b = -OO; int c = -OO; int e = -OO; int d = -OO;
+	bool entered = 0;
+	if (counter < ans) {
+		if (!visited[i][j]) { //valid
+			a = solve(i, j + 1, t - vec[i][j]);
+			b = solve(i + 1, 0, t - vec[i][j]);
+			c = solve(i + 1, 0, t);
+		}
+		else
+		{
+			d = solve(i + 1, 0, t);
+			e = solve(i, j + 1, t);
+		}
+ 
+		if (a >= b && a >= c && a >= d && a >= e && !entered) {
+			ansstring += to_string(i) + to_string(j);
+			cout << "from row " << i;
+			cout << " value --> " << vec[i][j] << endl;
+			visited[i][j] = 1;
+			counter++;
+			path(i, j + 1, t - vec[i][j]);
+			entered = 1;
+		}
+		if (b >= a && b >= c && b >= d && b >= e && !entered) {
+			ansstring += to_string(i) + to_string(j);
+			cout << "from row " << i;
+			cout << " value --> " << vec[i][j] << endl;
+			visited[i][j] = 1;
+			counter++;
+			path(i + 1, 0, t - vec[i][j]);
+			entered = 1;
+		}
+		if (c >= a && c >= b && c >= d && c >= e && !entered) {
+			path(i + 1, 0, t);
+			entered = 1;
+		}
+		if (d >= a && d >= b && d >= c && d >= e && !entered) {
+			path(i + 1, 0, t);
+			entered = 1;
+		}
+		else {
+			path(i, j + 1, t);
+			entered = 1;
+		}
+	}
+ 
+}
+int main() {
+	cin >> n;
+	vec.resize(n);
+	m.resize(n);
+	for (int i = 0;i < n;++i) {
+		cin >> m[i];
+		for (int j = 0;j < m[i];++j) {
+			int u;cin >> u;
+			vec[i].push_back(u);
+		}
+	}
+	while (true) {
+		memset(dp, -1, sizeof dp);
+		int t;
+		cin >> t;
+		ansvec.clear();
+		ans = solve(0, 0, t);
+		cout << ans << endl;
+		ansstring = "";
+		counter = 0;
+		path(0, 0, t);
+	}
+	system("pause");
+	return 0;
+}
+*/
+ 
+ 
+typedef long long ll;
+const ll mod = 1000000007;
+//const int n = 1e5 + 50;
+const long long oo = 100000000;
+const double pi = 3.141592654;
+string alphab = "abcdefghijklmnopqrstuvwxyz";
+ 
+ll gcd(ll a, ll b) { return (b == 0 ? a : gcd(b, a % b)); }
+ll OO = 1e9 + 1;
+ 
+int main() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	int tc;cin >> tc;
+	while (tc--) {
+		
+		ll n, k;
+    cin >> n >> k;
+		ll sold = 0;
+		ll snew = k/n;
+		while (snew != sold) {
+			k += snew - sold;
+			sold = snew;
+			snew = k / n;
+		}
+		cout << k << endl;
+	}
+	return 0;
+}
